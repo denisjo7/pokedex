@@ -69,7 +69,9 @@
   border: none;
   border-radius: 7px;
   box-shadow: 1px 2px 7px 0px #444444;
+  font-size: 16px;
   height: 30px;
+  padding: 0 10px;
   width: 100%;
 }
 
@@ -82,10 +84,30 @@
   flex-direction: column;
   margin-top: 3px;
   max-height: 180px;
+  overflow-x: hidden;
   overflow-y: scroll;
   position: absolute;
   width: 100%;
   z-index: 2;
+}
+
+.poke_suggestions::-webkit-scrollbar {
+  width: 7px;
+}
+
+.poke_suggestions::-webkit-scrollbar-track {
+  background: whitesmoke;
+  border-radius: 7px;
+}
+
+.poke_suggestions::-webkit-scrollbar-thumb {
+  background-color: #9a9a9a;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.poke_suggestions::-webkit-scrollbar-thumb:hover {
+  background-color: #868686;
 }
 
 .poke_suggestion:last-child {
