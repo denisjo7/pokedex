@@ -1,0 +1,166 @@
+.poke_card {
+  border-radius: 15px;
+  box-shadow: 0 3px 8px #444;
+  display: flex;
+  height: 120px;
+  margin: 10px 20px;
+  max-height: 120px;
+  max-width: 270px;
+  min-height: 120px;
+  min-width: 270px;
+  overflow: hidden;
+  width: 270px;
+}
+
+.poke_img_container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 45%;
+}
+
+.poke_img_bg {
+  background-color: white;
+  border-radius: 50%;
+  bottom: -30px;
+  height: 120%;
+  left: -30px;
+  opacity: 0.3;
+  position: absolute;
+  width: 120%;
+}
+
+.poke_img {
+  position: relative;
+}
+
+.poke_infos {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 7px;
+  position: relative;
+  text-shadow: 2px 2px 3px #494848;
+  width: 55%;
+}
+
+.pokeball {
+  filter: saturate(0);
+  opacity: 0.3;
+  position: absolute;
+  right: -65px;
+  top: -20px;
+}
+
+.name_and_number {
+  position: relative;
+  text-align: left;
+}
+
+.name_and_number h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  
+}
+
+.name_and_number h4 {
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.name {
+  text-transform: capitalize;
+}
+
+.types {
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+}
+
+.type {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 7px;
+  display: flex;
+  font-size: 0.8rem;
+  height: fit-content;
+  justify-content: center;
+  padding: 5px 8px;
+  text-transform: capitalize;
+  width: fit-content;
+}
+
+.normal {
+  background-color: #A8A878;
+}
+
+.fire {
+  background-color: #F08030;
+}
+
+.fighting {
+  background-color: #C03028;
+}
+
+.water {
+  background-color: #6890F0;
+}
+
+.flying {
+  background-color: #A890F0;
+}
+
+.grass {
+  background-color: #78C850;
+}
+
+.poison {
+  background-color: #A040A0;
+}
+
+.electric {
+  background-color: #F8D030;
+}
+
+.ground {
+  background-color: #E0C068;
+}
+
+.psychic {
+  background-color: #F85888;
+}
+
+.rock {
+  background-color: #B8A038;
+}
+
+.ice {
+  background-color: #98D8D8;
+}
+
+.bug {
+  background-color: #A8B820;
+}
+
+.dragon {
+  background-color: #7038F8;
+}
+
+.ghost {
+  background-color: #705898;
+}
+
+.dark {
+  background-color: #705848;
+}
+
+.steel {
+  background-color: #B8B8D0;
+}
+
+.fairy {
+  background-color: #EE99AC;
+}
