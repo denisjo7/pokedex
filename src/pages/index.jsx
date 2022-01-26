@@ -2,6 +2,7 @@ import {
   createRef, useEffect, useState,
 } from 'react';
 import Image from 'next/image';
+import Head from 'next/head';
 import PokeCard from '../components/PokeCard';
 import fetchPokemons from '../services/fetchPokemons';
 import nextPokemons from '../assets/images/next.svg';
@@ -87,42 +88,49 @@ export default function Home() {
   }
 
   return (
-    <div
-      aria-hidden="true"
-      className={style.home}
-      onClick={({ target }) => {
-        if (target !== searchInput.current) setShowSuggestions(false);
-      }}
-    >
-      <header className={style.header}>
-        <h1 className={style.page_title}>POKEDEX BY FREEZING</h1>
-      </header>
+    <>
+      <Head>
+        <title>Pokedex</title>
+        <meta name="description" content="Uma pokedex, manito" />
+        <meta httpEquiv="Content-Language" content="pt-br" />
+      </Head>
+      <div
+        aria-hidden="true"
+        className={style.home}
+        onClick={({ target }) => {
+          if (target !== searchInput.current) setShowSuggestions(false);
+        }}
+      >
+        <header className={style.header}>
+          <h1 className={style.page_title}>POKEDEX BY FREEZING</h1>
+        </header>
 
-      <div className={style.search_container}>
-        <div className={style.search_input_and_suggestions}>
-          <input
-            autoComplete="off"
-            className={style.search_input}
-            id="search-pokemon"
-            onChange={searchHandle}
-            onClick={() => {
-              if (!showSuggestions && pokeToSearch !== '') setShowSuggestions(true);
-            }}
-            onKeyDown={({ key }) => {
-              if (key === 'Enter' && pokeToSearch !== '') loadCustomPokeList();
-              if (key === 'Enter' && pokeToSearch === '') loadDefaultPokeList();
-            }}
-            ref={searchInput}
-            type="text"
-            value={pokeToSearch}
-          />
+        <div className={style.search_container}>
+          <div className={style.search_input_and_suggestions}>
+            <input
+              autoComplete="off"
+              className={style.search_input}
+              id="search-pokemon"
+              onChange={searchHandle}
+              onClick={() => {
+                if (!showSuggestions && pokeToSearch !== '') setShowSuggestions(true);
+              }}
+              onKeyDown={({ key }) => {
+                if (key === 'Enter' && pokeToSearch !== '') loadCustomPokeList();
+                if (key === 'Enter' && pokeToSearch === '') loadDefaultPokeList();
+              }}
+              ref={searchInput}
+              type="text"
+              value={pokeToSearch}
+            />
 
-          {showSuggestions && (
+            {showSuggestions && (
             <div className={style.poke_suggestions}>
               {allPokes
                 .filter(({ name }) => name.includes(pokeToSearch) && pokeToSearch !== '')
                 .map(({ name }, index) => (
-                  <button
+                  <span
+                    aria-hidden="true"
                     className={style.poke_suggestion}
                     key={`suggestion__${name}__${index + 0}`}
                     id={name}
@@ -130,60 +138,60 @@ export default function Home() {
                       handleSearchOnSuggestionClick(id);
                       setShowSuggestions(false);
                     }}
-                    type="button"
                   >
                     {name}
-                  </button>
+                  </span>
                 ))}
             </div>
-          )}
+            )}
+          </div>
+          <button
+            className={style.search_btn}
+            type="button"
+            onClick={() => {
+              if (pokeToSearch !== '') loadCustomPokeList();
+              if (pokeToSearch === '') loadDefaultPokeList();
+            }}
+          >
+            Search
+          </button>
         </div>
-        <button
-          className={style.search_btn}
-          type="button"
-          onClick={() => {
-            if (pokeToSearch !== '') loadCustomPokeList();
-            if (pokeToSearch === '') loadDefaultPokeList();
-          }}
-        >
-          Search
-        </button>
-      </div>
 
-      <div className={style.pokemons_container}>
-        {currentPokeList.length > 0
+        <div className={style.pokemons_container}>
+          {currentPokeList.length > 0
           && currentPokeList.map(({ name, url }, index) => (
             <PokeCard key={`card__${name}__${index + 0}`} url={url} />
           ))}
-      </div>
+        </div>
 
-      <div className={style.pokemons_navigation}>
-        <button
-          className={style.previousPokemonsBtn}
-          onClick={() => nextOrPrevPokes('previous')}
-          type="button"
-        >
-          <Image
-            alt="Previous pokemons button"
-            src={nextPokemons}
-            height={50}
-            width={50}
-          />
-        </button>
+        <div className={style.pokemons_navigation}>
+          <button
+            className={style.previousPokemonsBtn}
+            onClick={() => nextOrPrevPokes('previous')}
+            type="button"
+          >
+            <Image
+              alt="Previous pokemons button"
+              src={nextPokemons}
+              height={50}
+              width={50}
+            />
+          </button>
 
-        <button
-          className={style.nextPokemonsBtn}
-          onClick={() => nextOrPrevPokes('next')}
-          type="button"
-        >
-          <Image
-            alt="Next pokemons button"
-            src={nextPokemons}
-            height={50}
-            width={50}
-          />
-        </button>
+          <button
+            className={style.nextPokemonsBtn}
+            onClick={() => nextOrPrevPokes('next')}
+            type="button"
+          >
+            <Image
+              alt="Next pokemons button"
+              src={nextPokemons}
+              height={50}
+              width={50}
+            />
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
