@@ -98,6 +98,7 @@
 .poke_suggestions::-webkit-scrollbar-track {
   background: whitesmoke;
   border-radius: 7px;
+  margin: 1px 0;
 }
 
 .poke_suggestions::-webkit-scrollbar-thumb {
