@@ -108,6 +108,7 @@ export default function Home() {
             }}
             onKeyDown={({ key }) => {
               if (key === 'Enter' && pokeToSearch !== '') loadCustomPokeList();
+              if (key === 'Enter' && pokeToSearch === '') loadDefaultPokeList();
             }}
             ref={searchInput}
             type="text"
@@ -140,6 +141,7 @@ export default function Home() {
           type="button"
           onClick={() => {
             if (pokeToSearch !== '') loadCustomPokeList();
+            if (pokeToSearch === '') loadDefaultPokeList();
           }}
         >
           Search
