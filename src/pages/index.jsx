@@ -59,8 +59,12 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    const checkAllPokes = allPokes.filter(({ name }) => (name.includes(pokeToSearch) && pokeToSearch !== '')).map(({ name }) => name);
+    const checkCurrentPokeList = currentPokeList.map(({ name }) => name);
+    const compareChecks = JSON.stringify(checkAllPokes) === JSON.stringify(checkCurrentPokeList);
+
     if (!showSuggestions) setShowSuggestions(true);
-    if (pokeToSearch === '' || !allPokes.some(({ name }) => name.includes(pokeToSearch))) {
+    if (pokeToSearch === '' || !allPokes.some(({ name }) => name.includes(pokeToSearch)) || compareChecks) {
       setShowSuggestions(false);
     }
   }, [pokeToSearch]);
@@ -120,7 +124,10 @@ export default function Home() {
                     className={style.poke_suggestion}
                     key={`suggestion__${name}__${index + 0}`}
                     id={name}
-                    onClick={({ target: { id } }) => handleSearchOnSuggestionClick(id)}
+                    onClick={({ target: { id } }) => {
+                      handleSearchOnSuggestionClick(id);
+                      setShowSuggestions(false);
+                    }}
                   >
                     {name}
                   </span>
