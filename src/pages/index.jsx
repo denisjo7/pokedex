@@ -15,6 +15,7 @@ export default function Home() {
   const [totalAmountPokes, setTotalAmountPokes] = useState(0);
   const [allPokes, setAllPokes] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [wasSuggested, setWasSuggested] = useState(false);
   const [pokeToSearch, setPokeToSearch] = useState('');
   const searchInput = createRef();
 
@@ -44,15 +45,14 @@ export default function Home() {
   }
 
   function loadCustomPokeList(customId) {
-    if (pokeToSearch !== '') {
-      const filteredPokeNameList = allPokes
-        .filter(({ name }) => name.includes(customId || pokeToSearch));
-      const customPokeList = filteredPokeNameList.map(({ id, name }) => {
-        const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-        return { name, url };
-      });
-      setCurrentPokeList(customPokeList);
-    }
+    const filteredPokeNameList = allPokes
+      .filter(({ name }) => name.includes(customId || pokeToSearch));
+    const customPokeList = filteredPokeNameList.map(({ id, name }) => {
+      const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+      return { name, url };
+    });
+    setShowSuggestions(false);
+    setCurrentPokeList(customPokeList);
   }
 
   useEffect(() => {
@@ -60,12 +60,10 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const checkAllPokes = allPokes.filter(({ name }) => (name.includes(pokeToSearch) && pokeToSearch !== '')).map(({ name }) => name);
-    const checkCurrentPokeList = currentPokeList.map(({ name }) => name);
-    const compareChecks = JSON.stringify(checkAllPokes) === JSON.stringify(checkCurrentPokeList);
+    const checkSearch = allPokes.some(({ name }) => name.includes(pokeToSearch));
 
     if (!showSuggestions) setShowSuggestions(true);
-    if (pokeToSearch === '' || !allPokes.some(({ name }) => name.includes(pokeToSearch)) || compareChecks) {
+    if (pokeToSearch === '' || !checkSearch || wasSuggested) {
       setShowSuggestions(false);
     }
   }, [pokeToSearch]);
@@ -84,6 +82,7 @@ export default function Home() {
 
   function handleSearchOnSuggestionClick(id) {
     setPokeToSearch(id);
+    setWasSuggested(true);
     loadCustomPokeList(id);
   }
 
@@ -114,6 +113,7 @@ export default function Home() {
               onChange={searchHandle}
               onClick={() => {
                 if (!showSuggestions && pokeToSearch !== '') setShowSuggestions(true);
+                setWasSuggested(false);
               }}
               onKeyDown={({ key }) => {
                 if (key === 'Enter' && pokeToSearch !== '') loadCustomPokeList();
@@ -136,7 +136,6 @@ export default function Home() {
                     id={name}
                     onClick={({ target: { id } }) => {
                       handleSearchOnSuggestionClick(id);
-                      setShowSuggestions(false);
                     }}
                   >
                     {name}
