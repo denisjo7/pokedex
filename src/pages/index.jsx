@@ -94,7 +94,9 @@ export default function Home() {
         if (target !== searchInput.current) setShowSuggestions(false);
       }}
     >
-      <h1 className={style.title}>POKEDEX BY FREEZING</h1>
+      <header className={style.header}>
+        <h1 className={style.page_title}>POKEDEX BY FREEZING</h1>
+      </header>
 
       <div className={style.search_container}>
         <div className={style.search_input_and_suggestions}>
