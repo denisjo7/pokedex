@@ -21,13 +21,14 @@ export default function Home() {
     (async () => {
       const URL_ALL_POKES = `https://pokeapi.co/api/v2/pokemon?limit=${totalAmountPokes}&offset=0`;
       const { results } = await fetchPokemons(URL_ALL_POKES);
-      const pokeNamesTemp = [];
-      results.forEach(({ name, url }) => {
-        const id = url.split('/').reverse()[1];
-        pokeNamesTemp.push({ name, id });
-      });
-      pokeNamesTemp.sort((a, b) => a.name.localeCompare(b.name));
-      setAllPokes(pokeNamesTemp);
+      const pokeNamesAndIds = results.reduce((acc, poke) => {
+        const { name, url } = poke;
+        const [, id] = url.split('/').reverse();
+        acc.push({ name, id });
+        return acc;
+      }, []);
+      pokeNamesAndIds.sort((a, b) => a.name.localeCompare(b.name));
+      setAllPokes([...pokeNamesAndIds]);
     })();
   }, [totalAmountPokes]);
 
