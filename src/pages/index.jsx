@@ -94,11 +94,15 @@ export default function Home() {
         <meta httpEquiv="Content-Language" content="pt-br" />
       </Head>
       <div
-        aria-hidden="true"
         className={style.home}
         onClick={({ target }) => {
           if (target !== searchInput.current) setShowSuggestions(false);
         }}
+        onKeyDown={({ key }) => {
+          if (key === 'Escape') setShowSuggestions(false);
+        }}
+        role="button"
+        tabIndex={0}
       >
         <header className={style.header}>
           <h1 className={style.page_title}>POKEDEX BY FREEZING</h1>
