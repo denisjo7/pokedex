@@ -42,7 +42,6 @@
   justify-content: space-around;
   padding: 7px;
   position: relative;
-  text-shadow: 2px 2px 3px #494848;
   width: 55%;
 }
 
@@ -57,6 +56,7 @@
 .name_and_number {
   position: relative;
   text-align: left;
+  text-shadow: 2px 2px 3px #494848;
 }
 
 .name_and_number h1 {
@@ -82,13 +82,14 @@
 
 .type {
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 7px;
   display: flex;
   font-size: 0.8rem;
   height: fit-content;
   justify-content: center;
   padding: 5px 8px;
+  text-shadow: 2px 2px 2.5px black;
   text-transform: capitalize;
   width: fit-content;
 }
