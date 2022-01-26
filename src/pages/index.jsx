@@ -42,16 +42,15 @@ export default function Home() {
     setTotalAmountPokes(count);
   }
 
-  function loadCustomPokeList() {
+  function loadCustomPokeList(customId) {
     if (pokeToSearch !== '') {
-      const filteredPokeNameList = allPokes.filter(({ name }) => name.includes(pokeToSearch));
+      const filteredPokeNameList = allPokes
+        .filter(({ name }) => name.includes(customId || pokeToSearch));
       const customPokeList = filteredPokeNameList.map(({ id, name }) => {
         const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
         return { name, url };
       });
-      Promise.all(customPokeList).then((value) => {
-        setCurrentPokeList(value);
-      });
+      setCurrentPokeList(customPokeList);
     }
   }
 
@@ -77,6 +76,11 @@ export default function Home() {
 
   function searchHandle() {
     setPokeToSearch(searchInput.current.value);
+  }
+
+  function handleSearchOnSuggestionClick(id) {
+    setPokeToSearch(id);
+    loadCustomPokeList(id);
   }
 
   return (
@@ -117,11 +121,7 @@ export default function Home() {
                     className={style.poke_suggestion}
                     key={`suggestion__${name}__${index + 0}`}
                     id={name}
-                    onClick={({ target: { id } }) => {
-                      setPokeToSearch(id);
-                      console.log(pokeToSearch);
-                      loadCustomPokeList();
-                    }}
+                    onClick={({ target: { id } }) => handleSearchOnSuggestionClick(id)}
                   >
                     {name}
                   </span>
