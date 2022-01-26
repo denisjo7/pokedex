@@ -120,8 +120,7 @@ export default function Home() {
               {allPokes
                 .filter(({ name }) => name.includes(pokeToSearch) && pokeToSearch !== '')
                 .map(({ name }, index) => (
-                  <span
-                    aria-hidden="true"
+                  <button
                     className={style.poke_suggestion}
                     key={`suggestion__${name}__${index + 0}`}
                     id={name}
@@ -129,9 +128,10 @@ export default function Home() {
                       handleSearchOnSuggestionClick(id);
                       setShowSuggestions(false);
                     }}
+                    type="button"
                   >
                     {name}
-                  </span>
+                  </button>
                 ))}
             </div>
           )}
