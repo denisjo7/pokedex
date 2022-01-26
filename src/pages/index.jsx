@@ -62,7 +62,6 @@ export default function Home() {
     if (!showSuggestions) setShowSuggestions(true);
     if (pokeToSearch === '' || !allPokes.some(({ name }) => name.includes(pokeToSearch))) {
       setShowSuggestions(false);
-      loadDefaultPokeList();
     }
   }, [pokeToSearch]);
 
