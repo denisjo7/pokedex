@@ -6,6 +6,7 @@ import Head from 'next/head';
 import PokeCard from '../components/PokeCard';
 import fetchPokeList from '../services/fetchPokeList';
 import getDefaultPokeList from '../helpers/getDefaultPokeList';
+import getCustomPokeList from '../helpers/getCustomPokeList';
 import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
 
@@ -26,6 +27,12 @@ export default function Home() {
     setCurrentPokeList,
     setTotalAmountPokes,
   };
+  const customPokeListDependecies = {
+    allPokes,
+    pokeToSearch,
+    setShowSuggestions,
+    setCurrentPokeList,
+  };
 
   useEffect(() => {
     (async () => {
@@ -41,17 +48,6 @@ export default function Home() {
       setAllPokes([...pokeNamesAndIds]);
     })();
   }, [totalAmountPokes]);
-
-  function getCustomPokeList(customId) {
-    const filteredPokeNameList = allPokes
-      .filter(({ name }) => name.includes(customId || pokeToSearch));
-    const customPokeList = filteredPokeNameList.map(({ id, name }) => {
-      const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-      return { name, url };
-    });
-    setShowSuggestions(false);
-    setCurrentPokeList(customPokeList);
-  }
 
   useEffect(() => {
     getDefaultPokeList(defaultPokeListDependecies);
@@ -81,7 +77,7 @@ export default function Home() {
   function handleSearchOnSuggestionClick(id) {
     setPokeToSearch(id);
     setWasSuggested(true);
-    getCustomPokeList(id);
+    getCustomPokeList(id, customPokeListDependecies);
   }
 
   return (
@@ -118,7 +114,7 @@ export default function Home() {
                 setWasSuggested(false);
               }}
               onKeyDown={({ key }) => {
-                if (key === 'Enter' && pokeToSearch !== '') getCustomPokeList();
+                if (key === 'Enter' && pokeToSearch !== '') getCustomPokeList(customPokeListDependecies);
                 if (key === 'Enter' && pokeToSearch === '') getDefaultPokeList(defaultPokeListDependecies);
               }}
               ref={searchInput}
@@ -150,7 +146,7 @@ export default function Home() {
             className={style.search_btn}
             type="button"
             onClick={() => {
-              if (pokeToSearch !== '') getCustomPokeList();
+              if (pokeToSearch !== '') getCustomPokeList(customPokeListDependecies);
               if (pokeToSearch === '') getDefaultPokeList(defaultPokeListDependecies);
             }}
           >
