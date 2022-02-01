@@ -9,6 +9,7 @@ import getDefaultPokeList from '../helpers/getDefaultPokeList';
 import getCustomPokeList from '../helpers/getCustomPokeList';
 import getNextOrPrevPokeList from '../helpers/getNextOrPrevPokeList';
 import handleSearchOnSuggestionClick from '../helpers/handleSearchOnSuggestionClick';
+import handleSearch from '../helpers/handleSearch';
 import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
 
@@ -25,14 +26,18 @@ export default function Home() {
   const helpersDependencies = {
     allPokes,
     fetchPokeList,
+    getCustomPokeList,
     nextPokeList,
     pokeToSearch,
     prevPokeList,
+    searchInput,
     setCurrentPokeList,
     setNextPokeList,
+    setPokeToSearch,
     setPrevPokeList,
     setShowSuggestions,
     setTotalAmountPokes,
+    setWasSuggested,
   };
 
   useEffect(() => {
@@ -63,10 +68,6 @@ export default function Home() {
     }
   }, [pokeToSearch]);
 
-  function searchHandle() {
-    setPokeToSearch(searchInput.current.value);
-  }
-
   return (
     <>
       <Head>
@@ -95,7 +96,7 @@ export default function Home() {
               autoComplete="off"
               className={style.search_input}
               id="search-pokemon"
-              onChange={searchHandle}
+              onChange={() => handleSearch(helpersDependencies)}
               onClick={() => {
                 if (!showSuggestions && pokeToSearch !== '') setShowSuggestions(true);
                 setWasSuggested(false);
@@ -120,7 +121,7 @@ export default function Home() {
                     key={`suggestion__${name}__${index + 0}`}
                     id={name}
                     onClick={({ target: { id } }) => {
-                      handleSearchOnSuggestionClick(id, helpersDependencies);
+                      handleSearchOnSuggestionClick(helpersDependencies, id);
                     }}
                   >
                     {name}
@@ -151,7 +152,7 @@ export default function Home() {
         <div className={style.pokemons_navigation}>
           <button
             className={style.previousPokemonsBtn}
-            onClick={() => getNextOrPrevPokeList('previous', helpersDependencies)}
+            onClick={() => getNextOrPrevPokeList(helpersDependencies, 'previous')}
             type="button"
           >
             <Image
@@ -164,7 +165,7 @@ export default function Home() {
 
           <button
             className={style.nextPokemonsBtn}
-            onClick={() => getNextOrPrevPokeList('next', helpersDependencies)}
+            onClick={() => getNextOrPrevPokeList(helpersDependencies, 'next')}
             type="button"
           >
             <Image
