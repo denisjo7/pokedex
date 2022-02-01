@@ -8,6 +8,7 @@ import fetchPokeList from '../services/fetchPokeList';
 import getDefaultPokeList from '../helpers/getDefaultPokeList';
 import getCustomPokeList from '../helpers/getCustomPokeList';
 import getNextOrPrevPokeList from '../helpers/getNextOrPrevPokeList';
+import handleSearchOnSuggestionClick from '../helpers/handleSearchOnSuggestionClick';
 import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
 
@@ -66,12 +67,6 @@ export default function Home() {
     setPokeToSearch(searchInput.current.value);
   }
 
-  function handleSearchOnSuggestionClick(id) {
-    setPokeToSearch(id);
-    setWasSuggested(true);
-    getCustomPokeList(id, helpersDependencies);
-  }
-
   return (
     <>
       <Head>
@@ -125,7 +120,7 @@ export default function Home() {
                     key={`suggestion__${name}__${index + 0}`}
                     id={name}
                     onClick={({ target: { id } }) => {
-                      handleSearchOnSuggestionClick(id);
+                      handleSearchOnSuggestionClick(id, helpersDependencies);
                     }}
                   >
                     {name}
