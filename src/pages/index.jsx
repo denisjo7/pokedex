@@ -4,7 +4,7 @@ import {
 import Image from 'next/image';
 import Head from 'next/head';
 import PokeCard from '../components/PokeCard';
-import fetchPokemons from '../services/fetchPokemons';
+import fetchPokeList from '../services/fetchPokeList';
 import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
 
@@ -22,7 +22,7 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       const URL_ALL_POKES = `https://pokeapi.co/api/v2/pokemon?limit=${totalAmountPokes}&offset=0`;
-      const { results } = await fetchPokemons(URL_ALL_POKES);
+      const { results } = await fetchPokeList(URL_ALL_POKES);
       const pokeNamesAndIds = results.reduce((acc, poke) => {
         const { name, url } = poke;
         const [, id] = url.split('/').reverse();
@@ -37,7 +37,7 @@ export default function Home() {
   async function loadDefaultPokeList() {
     const {
       count, next, previous, results,
-    } = await fetchPokemons();
+    } = await fetchPokeList();
     setNextPokeList(next);
     setPrevPokeList(previous);
     setCurrentPokeList(results);
@@ -70,7 +70,7 @@ export default function Home() {
 
   async function nextOrPrevPokes(option) {
     const action = (option === 'next') ? nextPokeList : prevPokeList;
-    const { next, previous, results } = await fetchPokemons(action);
+    const { next, previous, results } = await fetchPokeList(action);
     setCurrentPokeList(results);
     setNextPokeList(next);
     setPrevPokeList(previous);
