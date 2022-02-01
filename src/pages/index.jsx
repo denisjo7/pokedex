@@ -34,7 +34,7 @@ export default function Home() {
     })();
   }, [totalAmountPokes]);
 
-  async function loadDefaultPokeList() {
+  async function getDefaultPokeList() {
     const {
       count, next, previous, results,
     } = await fetchPokeList();
@@ -56,7 +56,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    loadDefaultPokeList();
+    getDefaultPokeList();
   }, []);
 
   useEffect(() => {
@@ -121,7 +121,7 @@ export default function Home() {
               }}
               onKeyDown={({ key }) => {
                 if (key === 'Enter' && pokeToSearch !== '') loadCustomPokeList();
-                if (key === 'Enter' && pokeToSearch === '') loadDefaultPokeList();
+                if (key === 'Enter' && pokeToSearch === '') getDefaultPokeList();
               }}
               ref={searchInput}
               type="text"
@@ -153,7 +153,7 @@ export default function Home() {
             type="button"
             onClick={() => {
               if (pokeToSearch !== '') loadCustomPokeList();
-              if (pokeToSearch === '') loadDefaultPokeList();
+              if (pokeToSearch === '') getDefaultPokeList();
             }}
           >
             Search
