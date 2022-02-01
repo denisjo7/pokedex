@@ -1,9 +1,11 @@
-export default function getCustomPokeList(customId, {
-  allPokes,
-  pokeToSearch,
-  setShowSuggestions,
-  setCurrentPokeList,
-}) {
+export default function getCustomPokeList(dependencies, customId) {
+  const {
+    allPokes,
+    pokeToSearch,
+    setShowSuggestions,
+    setCurrentPokeList,
+  } = dependencies;
+
   const filteredPokeNameList = allPokes
     .filter(({ name }) => name.includes(customId || pokeToSearch));
   const customPokeList = filteredPokeNameList.map(({ id, name }) => {

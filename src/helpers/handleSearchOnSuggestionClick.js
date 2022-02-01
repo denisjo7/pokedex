@@ -1,4 +1,4 @@
-export default function handleSearchOnSuggestionClick(id, dependencies) {
+export default function handleSearchOnSuggestionClick(dependencies, id) {
   const {
     setPokeToSearch,
     setWasSuggested,
@@ -7,5 +7,5 @@ export default function handleSearchOnSuggestionClick(id, dependencies) {
 
   setPokeToSearch(id);
   setWasSuggested(true);
-  getCustomPokeList(id, dependencies);
+  getCustomPokeList(dependencies, id);
 }

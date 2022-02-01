@@ -1,11 +1,13 @@
-export default async function getNextOrPrevPokeList(option, {
-  nextPokeList,
-  prevPokeList,
-  fetchPokeList,
-  setCurrentPokeList,
-  setNextPokeList,
-  setPrevPokeList,
-}) {
+export default async function getNextOrPrevPokeList(dependencies, option) {
+  const {
+    nextPokeList,
+    prevPokeList,
+    fetchPokeList,
+    setCurrentPokeList,
+    setNextPokeList,
+    setPrevPokeList,
+  } = dependencies;
+
   const action = (option === 'next') ? nextPokeList : prevPokeList;
   const { next, previous, results } = await fetchPokeList(action);
   setCurrentPokeList(results);
