@@ -44,7 +44,7 @@ export default function Home() {
     setTotalAmountPokes(count);
   }
 
-  function loadCustomPokeList(customId) {
+  function getCustomPokeList(customId) {
     const filteredPokeNameList = allPokes
       .filter(({ name }) => name.includes(customId || pokeToSearch));
     const customPokeList = filteredPokeNameList.map(({ id, name }) => {
@@ -83,7 +83,7 @@ export default function Home() {
   function handleSearchOnSuggestionClick(id) {
     setPokeToSearch(id);
     setWasSuggested(true);
-    loadCustomPokeList(id);
+    getCustomPokeList(id);
   }
 
   return (
@@ -120,7 +120,7 @@ export default function Home() {
                 setWasSuggested(false);
               }}
               onKeyDown={({ key }) => {
-                if (key === 'Enter' && pokeToSearch !== '') loadCustomPokeList();
+                if (key === 'Enter' && pokeToSearch !== '') getCustomPokeList();
                 if (key === 'Enter' && pokeToSearch === '') getDefaultPokeList();
               }}
               ref={searchInput}
@@ -152,7 +152,7 @@ export default function Home() {
             className={style.search_btn}
             type="button"
             onClick={() => {
-              if (pokeToSearch !== '') loadCustomPokeList();
+              if (pokeToSearch !== '') getCustomPokeList();
               if (pokeToSearch === '') getDefaultPokeList();
             }}
           >
