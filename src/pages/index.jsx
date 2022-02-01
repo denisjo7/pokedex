@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Head from 'next/head';
 import PokeCard from '../components/PokeCard';
 import fetchPokeList from '../services/fetchPokeList';
+import getDefaultPokeList from '../helpers/getDefaultPokeList';
 import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
 
@@ -18,6 +19,13 @@ export default function Home() {
   const [wasSuggested, setWasSuggested] = useState(false);
   const [pokeToSearch, setPokeToSearch] = useState('');
   const searchInput = createRef();
+  const defaultPokeListDependecies = {
+    fetchPokeList,
+    setNextPokeList,
+    setPrevPokeList,
+    setCurrentPokeList,
+    setTotalAmountPokes,
+  };
 
   useEffect(() => {
     (async () => {
@@ -34,16 +42,6 @@ export default function Home() {
     })();
   }, [totalAmountPokes]);
 
-  async function getDefaultPokeList() {
-    const {
-      count, next, previous, results,
-    } = await fetchPokeList();
-    setNextPokeList(next);
-    setPrevPokeList(previous);
-    setCurrentPokeList(results);
-    setTotalAmountPokes(count);
-  }
-
   function getCustomPokeList(customId) {
     const filteredPokeNameList = allPokes
       .filter(({ name }) => name.includes(customId || pokeToSearch));
@@ -56,7 +54,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    getDefaultPokeList();
+    getDefaultPokeList(defaultPokeListDependecies);
   }, []);
 
   useEffect(() => {
@@ -121,7 +119,7 @@ export default function Home() {
               }}
               onKeyDown={({ key }) => {
                 if (key === 'Enter' && pokeToSearch !== '') getCustomPokeList();
-                if (key === 'Enter' && pokeToSearch === '') getDefaultPokeList();
+                if (key === 'Enter' && pokeToSearch === '') getDefaultPokeList(defaultPokeListDependecies);
               }}
               ref={searchInput}
               type="text"
@@ -153,7 +151,7 @@ export default function Home() {
             type="button"
             onClick={() => {
               if (pokeToSearch !== '') getCustomPokeList();
-              if (pokeToSearch === '') getDefaultPokeList();
+              if (pokeToSearch === '') getDefaultPokeList(defaultPokeListDependecies);
             }}
           >
             Search
