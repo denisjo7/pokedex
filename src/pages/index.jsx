@@ -7,6 +7,7 @@ import PokeCard from '../components/PokeCard';
 import fetchPokeList from '../services/fetchPokeList';
 import getDefaultPokeList from '../helpers/getDefaultPokeList';
 import getCustomPokeList from '../helpers/getCustomPokeList';
+import getNextOrPrevPokeList from '../helpers/getNextOrPrevPokeList';
 import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
 
@@ -20,18 +21,17 @@ export default function Home() {
   const [wasSuggested, setWasSuggested] = useState(false);
   const [pokeToSearch, setPokeToSearch] = useState('');
   const searchInput = createRef();
-  const defaultPokeListDependecies = {
+  const helpersDependencies = {
+    allPokes,
     fetchPokeList,
+    nextPokeList,
+    pokeToSearch,
+    prevPokeList,
+    setCurrentPokeList,
     setNextPokeList,
     setPrevPokeList,
-    setCurrentPokeList,
-    setTotalAmountPokes,
-  };
-  const customPokeListDependecies = {
-    allPokes,
-    pokeToSearch,
     setShowSuggestions,
-    setCurrentPokeList,
+    setTotalAmountPokes,
   };
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export default function Home() {
   }, [totalAmountPokes]);
 
   useEffect(() => {
-    getDefaultPokeList(defaultPokeListDependecies);
+    getDefaultPokeList(helpersDependencies);
   }, []);
 
   useEffect(() => {
@@ -62,14 +62,6 @@ export default function Home() {
     }
   }, [pokeToSearch]);
 
-  async function nextOrPrevPokes(option) {
-    const action = (option === 'next') ? nextPokeList : prevPokeList;
-    const { next, previous, results } = await fetchPokeList(action);
-    setCurrentPokeList(results);
-    setNextPokeList(next);
-    setPrevPokeList(previous);
-  }
-
   function searchHandle() {
     setPokeToSearch(searchInput.current.value);
   }
@@ -77,7 +69,7 @@ export default function Home() {
   function handleSearchOnSuggestionClick(id) {
     setPokeToSearch(id);
     setWasSuggested(true);
-    getCustomPokeList(id, customPokeListDependecies);
+    getCustomPokeList(id, helpersDependencies);
   }
 
   return (
@@ -114,8 +106,8 @@ export default function Home() {
                 setWasSuggested(false);
               }}
               onKeyDown={({ key }) => {
-                if (key === 'Enter' && pokeToSearch !== '') getCustomPokeList(customPokeListDependecies);
-                if (key === 'Enter' && pokeToSearch === '') getDefaultPokeList(defaultPokeListDependecies);
+                if (key === 'Enter' && pokeToSearch !== '') getCustomPokeList(helpersDependencies);
+                if (key === 'Enter' && pokeToSearch === '') getDefaultPokeList(helpersDependencies);
               }}
               ref={searchInput}
               type="text"
@@ -146,8 +138,8 @@ export default function Home() {
             className={style.search_btn}
             type="button"
             onClick={() => {
-              if (pokeToSearch !== '') getCustomPokeList(customPokeListDependecies);
-              if (pokeToSearch === '') getDefaultPokeList(defaultPokeListDependecies);
+              if (pokeToSearch !== '') getCustomPokeList(helpersDependencies);
+              if (pokeToSearch === '') getDefaultPokeList(helpersDependencies);
             }}
           >
             Search
@@ -164,7 +156,7 @@ export default function Home() {
         <div className={style.pokemons_navigation}>
           <button
             className={style.previousPokemonsBtn}
-            onClick={() => nextOrPrevPokes('previous')}
+            onClick={() => getNextOrPrevPokeList('previous', helpersDependencies)}
             type="button"
           >
             <Image
@@ -177,7 +169,7 @@ export default function Home() {
 
           <button
             className={style.nextPokemonsBtn}
-            onClick={() => nextOrPrevPokes('next')}
+            onClick={() => getNextOrPrevPokeList('next', helpersDependencies)}
             type="button"
           >
             <Image
