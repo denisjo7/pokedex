@@ -1,5 +1,5 @@
 import {
-  createRef, useEffect, useState,
+  createRef, useContext, useEffect,
 } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
@@ -12,33 +12,22 @@ import handleSearchOnSuggestionClick from '../helpers/handleSearchOnSuggestionCl
 import handleSearch from '../helpers/handleSearch';
 import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
+import AppContext from '../context/AppContext';
 
 export default function Home() {
-  const [currentPokeList, setCurrentPokeList] = useState([]);
-  const [nextPokeList, setNextPokeList] = useState('');
-  const [prevPokeList, setPrevPokeList] = useState('');
-  const [totalAmountPokes, setTotalAmountPokes] = useState(0);
-  const [allPokes, setAllPokes] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [wasSuggested, setWasSuggested] = useState(false);
-  const [pokeToSearch, setPokeToSearch] = useState('');
   const searchInput = createRef();
-  const helpersDependencies = {
+  const helpersDependencies = useContext(AppContext);
+  const {
     allPokes,
-    fetchPokeList,
-    getCustomPokeList,
-    nextPokeList,
+    currentPokeList,
     pokeToSearch,
-    prevPokeList,
-    searchInput,
-    setCurrentPokeList,
-    setNextPokeList,
-    setPokeToSearch,
-    setPrevPokeList,
+    setAllPokes,
     setShowSuggestions,
-    setTotalAmountPokes,
     setWasSuggested,
-  };
+    showSuggestions,
+    totalAmountPokes,
+    wasSuggested,
+  } = useContext(AppContext);
 
   useEffect(() => {
     (async () => {
@@ -50,7 +39,9 @@ export default function Home() {
         acc.push({ name, id });
         return acc;
       }, []);
+
       pokeNamesAndIds.sort((a, b) => a.name.localeCompare(b.name));
+
       setAllPokes([...pokeNamesAndIds]);
     })();
   }, [totalAmountPokes]);
@@ -96,7 +87,7 @@ export default function Home() {
               autoComplete="off"
               className={style.search_input}
               id="search-pokemon"
-              onChange={() => handleSearch(helpersDependencies)}
+              onChange={() => handleSearch(helpersDependencies, searchInput)}
               onClick={() => {
                 if (!showSuggestions && pokeToSearch !== '') setShowSuggestions(true);
                 setWasSuggested(false);
