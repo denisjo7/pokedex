@@ -1,4 +1,4 @@
-export default function getCustomPokeList(dependencies, customId) {
+export default function createCustomPokeList(dependencies, customId) {
   const {
     allPokes,
     pokeToSearch,

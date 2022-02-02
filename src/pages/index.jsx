@@ -6,7 +6,7 @@ import Head from 'next/head';
 import PokeCard from '../components/PokeCard';
 import fetchPokeList from '../services/fetchPokeList';
 import getDefaultPokeList from '../helpers/getDefaultPokeList';
-import getCustomPokeList from '../helpers/getCustomPokeList';
+import createCustomPokeList from '../helpers/createCustomPokeList';
 import getNextOrPrevPokeList from '../helpers/getNextOrPrevPokeList';
 import handleSearchOnSuggestionClick from '../helpers/handleSearchOnSuggestionClick';
 import handleSearch from '../helpers/handleSearch';
@@ -93,7 +93,7 @@ export default function Home() {
                 setWasSuggested(false);
               }}
               onKeyDown={({ key }) => {
-                if (key === 'Enter' && pokeToSearch !== '') getCustomPokeList(helpersDependencies);
+                if (key === 'Enter' && pokeToSearch !== '') createCustomPokeList(helpersDependencies);
                 if (key === 'Enter' && pokeToSearch === '') getDefaultPokeList(helpersDependencies);
               }}
               ref={searchInput}
@@ -125,7 +125,7 @@ export default function Home() {
             className={style.search_btn}
             type="button"
             onClick={() => {
-              if (pokeToSearch !== '') getCustomPokeList(helpersDependencies);
+              if (pokeToSearch !== '') createCustomPokeList(helpersDependencies);
               if (pokeToSearch === '') getDefaultPokeList(helpersDependencies);
             }}
           >

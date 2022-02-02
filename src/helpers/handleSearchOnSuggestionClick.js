@@ -1,4 +1,4 @@
-import getCustomPokeList from './getCustomPokeList';
+import createCustomPokeList from './createCustomPokeList';
 
 export default function handleSearchOnSuggestionClick(dependencies, id) {
   const {
@@ -8,5 +8,5 @@ export default function handleSearchOnSuggestionClick(dependencies, id) {
 
   setPokeToSearch(id);
   setWasSuggested(true);
-  getCustomPokeList(dependencies, id);
+  createCustomPokeList(dependencies, id);
 }
