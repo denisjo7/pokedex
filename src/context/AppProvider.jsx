@@ -12,22 +12,22 @@ export default function AppProvider({ children }) {
   const [pokeToSearch, setPokeToSearch] = useState('');
 
   const context = useMemo(() => ({
-    currentPokeList,
-    setCurrentPokeList,
-    nextPokeList,
-    setNextPokeList,
-    prevPokeList,
-    setPrevPokeList,
-    totalAmountPokes,
-    setTotalAmountPokes,
     allPokes,
-    setAllPokes,
-    showSuggestions,
-    setShowSuggestions,
-    wasSuggested,
-    setWasSuggested,
+    currentPokeList,
+    nextPokeList,
     pokeToSearch,
+    prevPokeList,
+    setAllPokes,
+    setCurrentPokeList,
+    setNextPokeList,
     setPokeToSearch,
+    setPrevPokeList,
+    setShowSuggestions,
+    setTotalAmountPokes,
+    setWasSuggested,
+    showSuggestions,
+    totalAmountPokes,
+    wasSuggested,
   }));
 
   return (
