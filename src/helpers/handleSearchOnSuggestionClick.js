@@ -1,8 +1,9 @@
+import getCustomPokeList from './getCustomPokeList';
+
 export default function handleSearchOnSuggestionClick(dependencies, id) {
   const {
     setPokeToSearch,
     setWasSuggested,
-    getCustomPokeList,
   } = dependencies;
 
   setPokeToSearch(id);
