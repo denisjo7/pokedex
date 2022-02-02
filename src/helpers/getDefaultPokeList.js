@@ -1,13 +1,15 @@
+import fetchPokeList from '../services/fetchPokeList';
+
 export default async function getDefaultPokeList({
-  fetchPokeList,
+  setCurrentPokeList,
   setNextPokeList,
   setPrevPokeList,
-  setCurrentPokeList,
   setTotalAmountPokes,
 }) {
   const {
     count, next, previous, results,
   } = await fetchPokeList();
+
   setNextPokeList(next);
   setPrevPokeList(previous);
   setCurrentPokeList(results);

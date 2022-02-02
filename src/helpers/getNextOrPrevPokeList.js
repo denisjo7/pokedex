@@ -1,8 +1,9 @@
+import fetchPokeList from '../services/fetchPokeList';
+
 export default async function getNextOrPrevPokeList(dependencies, option) {
   const {
     nextPokeList,
     prevPokeList,
-    fetchPokeList,
     setCurrentPokeList,
     setNextPokeList,
     setPrevPokeList,
