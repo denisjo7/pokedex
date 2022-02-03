@@ -3,18 +3,18 @@ import {
 } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
+import AppContext from '../context/AppContext';
 import PokeCard from '../components/home_page/PokeCard';
+import Header from '../components/home_page/Header';
+import SearchInput from '../components/home_page/SearchInput';
+import Suggestions from '../components/home_page/Suggestions';
+import SearchButton from '../components/home_page/SearchButton';
 import getDefaultPokeList from '../helpers/getDefaultPokeList';
 import getNextOrPrevPokeList from '../helpers/getNextOrPrevPokeList';
 import toggleSuggestions from '../helpers/toggleSuggestions';
 import getAllPokeNamesAndUrl from '../helpers/getAllPokeNamesAndUrl';
 import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
-import AppContext from '../context/AppContext';
-import Header from '../components/home_page/Header';
-import SearchInput from '../components/home_page/SearchInput';
-import Suggestions from '../components/home_page/Suggestions';
-import SearchButton from '../components/home_page/SearchButton';
 
 export default function Home() {
   const searchInput = createRef();
