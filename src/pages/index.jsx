@@ -3,7 +3,7 @@ import {
 } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
-import PokeCard from '../components/PokeCard';
+import PokeCard from '../components/home_page/PokeCard';
 import getDefaultPokeList from '../helpers/getDefaultPokeList';
 import createCustomPokeList from '../helpers/createCustomPokeList';
 import getNextOrPrevPokeList from '../helpers/getNextOrPrevPokeList';

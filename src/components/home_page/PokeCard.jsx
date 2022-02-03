@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import fetchSpecificPokemon from '../services/fetchSpecificPokemon';
-import pokeball from '../assets/images/pokeball.png';
-import style from '../styles/PokeCard.module.css';
+import fetchSpecificPokemon from '../../services/fetchSpecificPokemon';
+import pokeball from '../../assets/images/pokeball.png';
+import style from '../../styles/PokeCard.module.css';
 
 export default function PokeCard({ url }) {
   const [pokemon, setPokemon] = useState({});
