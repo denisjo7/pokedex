@@ -48,12 +48,8 @@ export default function Home() {
       </Head>
       <div
         className={style.home}
-        onClick={({ target }) => {
-          if (target !== searchInput.current) setShowSuggestions(false);
-        }}
-        onKeyDown={({ key }) => {
-          if (key === 'Escape') setShowSuggestions(false);
-        }}
+        onClick={({ target }) => (target !== searchInput.current) && setShowSuggestions(false)}
+        onKeyDown={({ key }) => (key === 'Escape') && setShowSuggestions(false)}
         role="button"
         tabIndex={0}
       >
@@ -62,7 +58,6 @@ export default function Home() {
         <div className={style.search_container}>
           <div className={style.search_input_and_suggestions}>
             <SearchInput searchInput={searchInput} />
-
             {showSuggestions && <Suggestions />}
           </div>
 
