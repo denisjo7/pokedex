@@ -10,6 +10,7 @@ import createCustomPokeList from '../helpers/createCustomPokeList';
 import getNextOrPrevPokeList from '../helpers/getNextOrPrevPokeList';
 import handleSearchOnSuggestionClick from '../helpers/handleSearchOnSuggestionClick';
 import handleSearch from '../helpers/handleSearch';
+import toggleSuggestions from '../helpers/toggleSuggestions';
 import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
 import AppContext from '../context/AppContext';
@@ -26,7 +27,6 @@ export default function Home() {
     setWasSuggested,
     showSuggestions,
     totalAmountPokes,
-    wasSuggested,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -51,12 +51,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const checkSearch = allPokes.some(({ name }) => name.includes(pokeToSearch));
-
-    if (!showSuggestions) setShowSuggestions(true);
-    if (pokeToSearch === '' || !checkSearch || wasSuggested) {
-      setShowSuggestions(false);
-    }
+    toggleSuggestions(helpersDependencies);
   }, [pokeToSearch]);
 
   return (
