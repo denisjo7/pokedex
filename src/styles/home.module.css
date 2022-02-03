@@ -34,25 +34,6 @@
   width: 80%;
 }
 
-.pokemons_navigation {
-  align-items: center;
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 25px;
-  min-width: 160px;
-  width: 30%;
-}
-
-.nextPokemonsBtn, .previousPokemonsBtn {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.previousPokemonsBtn {
-  transform: rotateY(180deg);
-}
-
 .search_container {
   display: flex;
   justify-content: center;
