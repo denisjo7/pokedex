@@ -1,3 +1,3 @@
-export default function handleSearch({ setPokeToSearch }, searchInput) {
+export default function handleSearch(setPokeToSearch, searchInput) {
   setPokeToSearch(searchInput.current.value);
 }
