@@ -14,6 +14,7 @@ import getAllPokeNamesAndUrl from '../helpers/getAllPokeNamesAndUrl';
 import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
 import AppContext from '../context/AppContext';
+import Header from '../components/home_page/Header';
 
 export default function Home() {
   const searchInput = createRef();
@@ -58,9 +59,7 @@ export default function Home() {
         role="button"
         tabIndex={0}
       >
-        <header className={style.header}>
-          <h1 className={style.page_title}>POKEDEX BY FREEZING</h1>
-        </header>
+        <Header />
 
         <div className={style.search_container}>
           <div className={style.search_input_and_suggestions}>
