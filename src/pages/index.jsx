@@ -1,19 +1,17 @@
 import {
   createRef, useContext, useEffect,
 } from 'react';
-import Image from 'next/image';
 import Head from 'next/head';
 import AppContext from '../context/AppContext';
 import PokeCard from '../components/home_page/PokeCard';
 import Header from '../components/home_page/Header';
+import PaginationBar from '../components/home_page/PaginationBar';
 import SearchInput from '../components/home_page/SearchInput';
 import Suggestions from '../components/home_page/Suggestions';
 import SearchButton from '../components/home_page/SearchButton';
 import getDefaultPokeList from '../helpers/getDefaultPokeList';
-import getNextOrPrevPokeList from '../helpers/getNextOrPrevPokeList';
 import toggleSuggestions from '../helpers/toggleSuggestions';
 import getAllPokeNamesAndUrl from '../helpers/getAllPokeNamesAndUrl';
-import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
 
 export default function Home() {
@@ -71,33 +69,7 @@ export default function Home() {
           ))}
         </div>
 
-        <div className={style.pokemons_navigation}>
-          <button
-            className={style.previousPokemonsBtn}
-            onClick={() => getNextOrPrevPokeList(helpersDependencies, 'previous')}
-            type="button"
-          >
-            <Image
-              alt="Previous pokemons button"
-              src={nextPokemons}
-              height={50}
-              width={50}
-            />
-          </button>
-
-          <button
-            className={style.nextPokemonsBtn}
-            onClick={() => getNextOrPrevPokeList(helpersDependencies, 'next')}
-            type="button"
-          >
-            <Image
-              alt="Next pokemons button"
-              src={nextPokemons}
-              height={50}
-              width={50}
-            />
-          </button>
-        </div>
+        <PaginationBar />
       </div>
     </>
   );
