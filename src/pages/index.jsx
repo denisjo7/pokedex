@@ -4,7 +4,6 @@ import {
 import Image from 'next/image';
 import Head from 'next/head';
 import PokeCard from '../components/PokeCard';
-import fetchPokeList from '../services/fetchPokeList';
 import getDefaultPokeList from '../helpers/getDefaultPokeList';
 import createCustomPokeList from '../helpers/createCustomPokeList';
 import getNextOrPrevPokeList from '../helpers/getNextOrPrevPokeList';
@@ -14,6 +13,7 @@ import toggleSuggestions from '../helpers/toggleSuggestions';
 import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
 import AppContext from '../context/AppContext';
+import fetchAllPokeNames from '../services/fetchAllPokeNames';
 
 export default function Home() {
   const searchInput = createRef();
@@ -31,8 +31,8 @@ export default function Home() {
 
   useEffect(() => {
     (async () => {
-      const URL_ALL_POKES = `https://pokeapi.co/api/v2/pokemon?limit=${totalAmountPokes}&offset=0`;
-      const { results } = await fetchPokeList(URL_ALL_POKES);
+      const results = await fetchAllPokeNames(totalAmountPokes);
+      console.log(results);
       const pokeNamesAndIds = results.reduce((acc, poke) => {
         const { name, url } = poke;
         const [, id] = url.split('/').reverse();
