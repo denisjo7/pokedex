@@ -8,13 +8,13 @@ import getDefaultPokeList from '../helpers/getDefaultPokeList';
 import createCustomPokeList from '../helpers/createCustomPokeList';
 import getNextOrPrevPokeList from '../helpers/getNextOrPrevPokeList';
 import handleSearchOnSuggestionClick from '../helpers/handleSearchOnSuggestionClick';
-import handleSearch from '../helpers/handleSearch';
 import toggleSuggestions from '../helpers/toggleSuggestions';
 import getAllPokeNamesAndUrl from '../helpers/getAllPokeNamesAndUrl';
 import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
 import AppContext from '../context/AppContext';
 import Header from '../components/home_page/Header';
+import SearchInput from '../components/home_page/SearchInput';
 
 export default function Home() {
   const searchInput = createRef();
@@ -24,7 +24,6 @@ export default function Home() {
     currentPokeList,
     pokeToSearch,
     setShowSuggestions,
-    setWasSuggested,
     showSuggestions,
     totalAmountPokes,
   } = useContext(AppContext);
@@ -63,23 +62,7 @@ export default function Home() {
 
         <div className={style.search_container}>
           <div className={style.search_input_and_suggestions}>
-            <input
-              autoComplete="off"
-              className={style.search_input}
-              id="search-pokemon"
-              onChange={() => handleSearch(helpersDependencies, searchInput)}
-              onClick={() => {
-                if (!showSuggestions && pokeToSearch !== '') setShowSuggestions(true);
-                setWasSuggested(false);
-              }}
-              onKeyDown={({ key }) => {
-                if (key === 'Enter' && pokeToSearch !== '') createCustomPokeList(helpersDependencies);
-                if (key === 'Enter' && pokeToSearch === '') getDefaultPokeList(helpersDependencies);
-              }}
-              ref={searchInput}
-              type="text"
-              value={pokeToSearch}
-            />
+            <SearchInput searchInput={searchInput} />
 
             {showSuggestions && (
             <div className={style.poke_suggestions}>
