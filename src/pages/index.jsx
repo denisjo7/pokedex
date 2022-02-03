@@ -10,10 +10,10 @@ import getNextOrPrevPokeList from '../helpers/getNextOrPrevPokeList';
 import handleSearchOnSuggestionClick from '../helpers/handleSearchOnSuggestionClick';
 import handleSearch from '../helpers/handleSearch';
 import toggleSuggestions from '../helpers/toggleSuggestions';
+import getAllPokeNamesAndUrl from '../helpers/getAllPokeNamesAndUrl';
 import nextPokemons from '../assets/images/next.svg';
 import style from '../styles/home.module.css';
 import AppContext from '../context/AppContext';
-import fetchAllPokeNames from '../services/fetchAllPokeNames';
 
 export default function Home() {
   const searchInput = createRef();
@@ -22,7 +22,6 @@ export default function Home() {
     allPokes,
     currentPokeList,
     pokeToSearch,
-    setAllPokes,
     setShowSuggestions,
     setWasSuggested,
     showSuggestions,
@@ -30,25 +29,12 @@ export default function Home() {
   } = useContext(AppContext);
 
   useEffect(() => {
-    (async () => {
-      const results = await fetchAllPokeNames(totalAmountPokes);
-      console.log(results);
-      const pokeNamesAndIds = results.reduce((acc, poke) => {
-        const { name, url } = poke;
-        const [, id] = url.split('/').reverse();
-        acc.push({ name, id });
-        return acc;
-      }, []);
-
-      pokeNamesAndIds.sort((a, b) => a.name.localeCompare(b.name));
-
-      setAllPokes([...pokeNamesAndIds]);
-    })();
-  }, [totalAmountPokes]);
-
-  useEffect(() => {
     getDefaultPokeList(helpersDependencies);
   }, []);
+
+  useEffect(() => {
+    getAllPokeNamesAndUrl(helpersDependencies);
+  }, [totalAmountPokes]);
 
   useEffect(() => {
     toggleSuggestions(helpersDependencies);
