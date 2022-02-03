@@ -13,7 +13,7 @@ export default function SearchInput({ searchInput }) {
     setShowSuggestions,
     setWasSuggested,
     showSuggestions,
-  } = useContext(AppContext);
+  } = helpersDependencies;
 
   return (
     <input

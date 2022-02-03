@@ -5,7 +5,7 @@ import style from '../../styles/home.module.css';
 
 export default function Suggestions() {
   const helpersDependencies = useContext(AppContext);
-  const { allPokes, pokeToSearch } = useContext(AppContext);
+  const { allPokes, pokeToSearch } = helpersDependencies;
 
   return (
     <div className={style.poke_suggestions}>
