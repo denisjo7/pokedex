@@ -1,11 +1,12 @@
-export default async function fetchPokemons(apiUrl) {
+import axios from 'axios';
+
+export default async function fetchPokeList(apiUrl) {
   const POKE_API = apiUrl || 'https://pokeapi.co/api/v2/pokemon?limit=12&offset=0';
 
   try {
-    const response = await fetch(POKE_API);
-    const data = await response.json();
+    const { data } = await axios(POKE_API);
     return data;
   } catch (error) {
-    return console.error(error);
+    return console.error('Algo deu errado ao buscar a lista de pokémons :(', error);
   }
 }
