@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default async function fetchAllPokeNames(amount) {
+export default async function fetchAllPokeNamesAndUrl(amount) {
   const URL_ALL_POKES = `https://pokeapi.co/api/v2/pokemon?limit=${amount}&offset=0`;
 
   try {
