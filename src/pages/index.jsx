@@ -7,7 +7,6 @@ import PokeCard from '../components/home_page/PokeCard';
 import getDefaultPokeList from '../helpers/getDefaultPokeList';
 import createCustomPokeList from '../helpers/createCustomPokeList';
 import getNextOrPrevPokeList from '../helpers/getNextOrPrevPokeList';
-import handleSearchOnSuggestionClick from '../helpers/handleSearchOnSuggestionClick';
 import toggleSuggestions from '../helpers/toggleSuggestions';
 import getAllPokeNamesAndUrl from '../helpers/getAllPokeNamesAndUrl';
 import nextPokemons from '../assets/images/next.svg';
@@ -15,12 +14,12 @@ import style from '../styles/home.module.css';
 import AppContext from '../context/AppContext';
 import Header from '../components/home_page/Header';
 import SearchInput from '../components/home_page/SearchInput';
+import Suggestions from '../components/home_page/Suggestions';
 
 export default function Home() {
   const searchInput = createRef();
   const helpersDependencies = useContext(AppContext);
   const {
-    allPokes,
     currentPokeList,
     pokeToSearch,
     setShowSuggestions,
@@ -64,26 +63,9 @@ export default function Home() {
           <div className={style.search_input_and_suggestions}>
             <SearchInput searchInput={searchInput} />
 
-            {showSuggestions && (
-            <div className={style.poke_suggestions}>
-              {allPokes
-                .filter(({ name }) => name.includes(pokeToSearch) && pokeToSearch !== '')
-                .map(({ name }, index) => (
-                  <span
-                    aria-hidden="true"
-                    className={style.poke_suggestion}
-                    key={`suggestion__${name}__${index + 0}`}
-                    id={name}
-                    onClick={({ target: { id } }) => {
-                      handleSearchOnSuggestionClick(helpersDependencies, id);
-                    }}
-                  >
-                    {name}
-                  </span>
-                ))}
-            </div>
-            )}
+            {showSuggestions && <Suggestions />}
           </div>
+
           <button
             className={style.search_btn}
             type="button"
