@@ -8,6 +8,6 @@ export default async function fetchAllPokeNames(amount) {
     const { results } = data;
     return results;
   } catch (error) {
-    return console.error('Algo deu errado. :(', error);
+    return console.error('Algo deu errado ao buscar todos os nomes dos pokémons :(', error);
   }
 }
