@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Head from 'next/head';
 import PokeCard from '../components/home_page/PokeCard';
 import getDefaultPokeList from '../helpers/getDefaultPokeList';
-import createCustomPokeList from '../helpers/createCustomPokeList';
 import getNextOrPrevPokeList from '../helpers/getNextOrPrevPokeList';
 import toggleSuggestions from '../helpers/toggleSuggestions';
 import getAllPokeNamesAndUrl from '../helpers/getAllPokeNamesAndUrl';
@@ -15,6 +14,7 @@ import AppContext from '../context/AppContext';
 import Header from '../components/home_page/Header';
 import SearchInput from '../components/home_page/SearchInput';
 import Suggestions from '../components/home_page/Suggestions';
+import SearchButton from '../components/home_page/SearchButton';
 
 export default function Home() {
   const searchInput = createRef();
@@ -66,16 +66,7 @@ export default function Home() {
             {showSuggestions && <Suggestions />}
           </div>
 
-          <button
-            className={style.search_btn}
-            type="button"
-            onClick={() => {
-              if (pokeToSearch !== '') createCustomPokeList(helpersDependencies);
-              if (pokeToSearch === '') getDefaultPokeList(helpersDependencies);
-            }}
-          >
-            Search
-          </button>
+          <SearchButton />
         </div>
 
         <div className={style.pokemons_container}>
